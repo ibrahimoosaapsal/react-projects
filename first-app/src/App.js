@@ -1,17 +1,16 @@
-function App() {
-  function handleNameChange(){
-  const names=["earn","grow","buy","find","halt","dump",]
-  const int=Math.floor(Math.random()*6) 
-  return(
-    names[int]
-  )}
-  return (
-    <div >
-    <h1>lets {handleNameChange()} money</h1>
-    
-    
-    </div>
-  );
+import Content from "./Content";
+import Footer from "./Footer";
+import Header from "./Header";
+
+function App() { 
+   return (
+     <div>
+          <Header /> 
+          <Content />
+          <Footer />
+     
+     </div>
+ );
 }
 
 export default App;
