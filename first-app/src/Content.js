@@ -8,6 +8,7 @@ const Content = () => {
     }
   return (
     <main>
+      
     <p>lets {handleNameChange()} money</p>
 
     </main>
