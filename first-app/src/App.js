@@ -1,9 +1,10 @@
+import AddItem from "./AddItem";
 import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import { useState } from "react";
 function App() { 
- const [items,setitems]=useState( //creating two variables one is for haolding default value another one is for manupulated array value 
+ const [item,setItems]=useState( //creating two variables one is for haolding default value another one is for manupulated array value 
      [//we can creating a array for default value
        {//we can creating three objects for this default array
          id:1,
@@ -21,34 +22,49 @@ function App() {
          listname:"learn about ai"
        }
      ]);
+     
+    const [newItem,setNewItem]=useState('');
+
  
     const  handleCheckBox =(id)=>{//creating a function for input field
-     const newarray=items.map((item)=> //creating a new array for 2nd useState value, 
+     const newarray=item.map((item)=> //creating a new array for 2nd useState value, 
      //and this item stand for like looping i variable it will collect the three variable one by one
      item.id===id ? {...item,checked:!item.checked} : item) //this is the logic
-     setitems(newarray)// setting the new aaray to 2nd use state variable
+     setItems(newarray)// setting the new aaray to 2nd use state variable
      localStorage.setItem("list_names",JSON.stringify(newarray)) //save this new array to local storage
     }
      
     const handleDelete= (id)=>{ //creating a function for delete icon,and this fun  will remove the matching id.
-     const newarray=items.filter((item)=>
+     const newarray=item.filter((item)=>
      item.id!==id)
-     setitems(newarray)
+     setItems(newarray)
      localStorage.setItem("list_names",JSON.stringify(newarray))
    }
      
+    const handleSubmit = (e) => {
+     e.preventDefault()
+     console.log("submitted")
+       
+    }
  
    return (
      <div className="App">
           <Header /> 
-          <Content
-           item={items}
-           setitems={setitems}
-           handleCheckBox={handleCheckBox}
-           handleDelete={setitems}
+          <AddItem 
+           newItem={newItem}
+           setNewItem={setNewItem}
+           handleSubmit={handleSubmit}
           
           />
-          <Footer />
+          <Content
+           item={item}
+           handleCheckBox={handleCheckBox}
+           handleDelete={handleDelete}
+          
+          />
+          <Footer
+          length={item.length}
+          />
      
      </div>
  );

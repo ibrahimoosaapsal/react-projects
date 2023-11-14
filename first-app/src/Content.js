@@ -2,7 +2,7 @@ import React from 'react'
 import {  FaTrash } from "react-icons/fa";
 
 
-const Content = (item,setitems,handleCheckBox,handleDelete) => {//creating a component which is functional component
+const Content = ({item,handleCheckBox,handleDelete}) => {//creating a component which is functional component
   
   
   return (
@@ -26,6 +26,7 @@ const Content = (item,setitems,handleCheckBox,handleDelete) => {//creating a com
              role='button'
              tabIndex="0"
              onClick={()=>handleDelete(item.id)}
+             ariia-label={`Delete ${item.item}`}
           />
          </li>       
        )}
