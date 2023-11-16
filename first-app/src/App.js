@@ -4,46 +4,40 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useState } from "react";
 function App() { 
- const [item,setItems]=useState( //creating two variables one is for haolding default value another one is for manupulated array value 
-     [//we can creating a array for default value
-       {//we can creating three objects for this default array
-         id:1,
-         checked:true,
-         listname:"learn react"
-       },
-       {
-         id:2,
-         checked:false,
-         listname:"learn python"
-       },
-       {
-         id:3,
-         checked:true,
-         listname:"learn about ai"
-       }
-     ]);
+ const [items,setItems]=useState(JSON.parse(localStorage.getItem("list_names")));
      
     const [newItem,setNewItem]=useState('');
 
+    const addItem = (item) => {
+      const id = items.length ? items[items.length - 1].id+1 : 1;
+      const addNewItem = {id,checked:false,item}
+      const listItem = [...items, addNewItem]
+      setItems(listItem)
+      localStorage.setItem("list names",JSON.stringify(listItem))
+    }
+
  
     const  handleCheckBox =(id)=>{//creating a function for input field
-     const newarray=item.map((item)=> //creating a new array for 2nd useState value, 
+     const listItem=items.map((item)=> //creating a new array for 2nd useState value, 
      //and this item stand for like looping i variable it will collect the three variable one by one
      item.id===id ? {...item,checked:!item.checked} : item) //this is the logic
-     setItems(newarray)// setting the new aaray to 2nd use state variable
-     localStorage.setItem("list_names",JSON.stringify(newarray)) //save this new array to local storage
+     setItems(listItem)// setting the new aaray to 2nd use state variable
+     localStorage.setItem("list_names",JSON.stringify(listItem)) //save this new array to local storage
     }
      
     const handleDelete= (id)=>{ //creating a function for delete icon,and this fun  will remove the matching id.
-     const newarray=item.filter((item)=>
+     const newarray=items.filter((item)=>
      item.id!==id)
      setItems(newarray)
      localStorage.setItem("list_names",JSON.stringify(newarray))
    }
      
     const handleSubmit = (e) => {
-     e.preventDefault()
-     console.log("submitted")
+     e.preventDefault()      
+     if(!newItem) return;
+     console.log(newItem)
+     addItem(newItem)
+     setNewItem('')
        
     }
  
@@ -57,13 +51,13 @@ function App() {
           
           />
           <Content
-           item={item}
+           item={items}
            handleCheckBox={handleCheckBox}
            handleDelete={handleDelete}
           
           />
           <Footer
-          length={item.length}
+          length={items.length}
           />
      
      </div>
