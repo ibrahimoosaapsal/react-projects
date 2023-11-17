@@ -3,7 +3,7 @@ import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import { useState } from "react";
-import SearchItem from "./SearchItem";
+import SearchItem from "./searchItem";
 function App() { 
  
  
@@ -59,7 +59,7 @@ function App() {
           
           />
           <Content
-           item={items.filter(item =>(item.listname).includes(search))}
+           item={items.filter(item =>(item.listname).toLowerCase().includes(search.toLowerCase()))}
            handleCheckBox={handleCheckBox}
            handleDelete={handleDelete}
           
