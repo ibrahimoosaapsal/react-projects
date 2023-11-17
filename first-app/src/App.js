@@ -3,17 +3,20 @@ import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import { useState } from "react";
+import SearchItem from "./SearchItem";
 function App() { 
- const [items,setItems]=useState(JSON.parse(localStorage.getItem("list_names")));
-     
+ 
+ 
+    const [items,setItems]=useState(JSON.parse(localStorage.getItem("list_names")));   
     const [newItem,setNewItem]=useState('');
+    const [search,setsearch]=useState('');
 
     const addItem = (item) => {
       const id = items.length ? items[items.length - 1].id+1 : 1;
-      const addNewItem = {id,checked:false,item}
+      const addNewItem = {id,checked:false,listname:item}
       const listItem = [...items, addNewItem]
       setItems(listItem)
-      localStorage.setItem("list names",JSON.stringify(listItem))
+      localStorage.setItem("list_names",JSON.stringify(listItem))
     }
 
  
@@ -50,8 +53,13 @@ function App() {
            handleSubmit={handleSubmit}
           
           />
+          <SearchItem 
+            search={search}
+            setsearch={setsearch}
+          
+          />
           <Content
-           item={items}
+           item={items.filter(item =>(item.listname).includes(search))}
            handleCheckBox={handleCheckBox}
            handleDelete={handleDelete}
           
