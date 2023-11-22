@@ -1,19 +1,26 @@
 import React from 'react'
 
-const Main = () => {
+const Main = ({color,hexValue,darkText}) => {
   return (
-   <main>
-     <div>
-
+   
+    <section 
+      className='section'
+      style={{
+        backgroundColor: color,
+        color: darkText ? "#000" : "#fff"
+      }}
+      > 
+      <p>{color ? color : "empty Value"}</p>
+      <p>{hexValue ? hexValue : null}</p>  
+    </section> 
 
         
-     </div>
-
-
-   </main>
-
-
-  )
+    )
 }
+
+Main.defaultProps = {
+  color:"empty Color Value"
+}
+
 
 export default Main

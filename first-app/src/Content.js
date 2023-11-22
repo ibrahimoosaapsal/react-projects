@@ -6,7 +6,7 @@ const Content = ({item,handleCheckBox,handleDelete}) => {//creating a component 
   
   
   return (
-    <main>
+  <>
       {(item.length)?//1A:this logic will check the list length
       (//if list have any object it will pass 
       <ul>
@@ -34,7 +34,7 @@ const Content = ({item,handleCheckBox,handleDelete}) => {//creating a component 
       )://1B if the condition is false 
       <p>your list is empty </p>//it will print the else statement
           }
-    </main>
+    </>
   )
 }
 

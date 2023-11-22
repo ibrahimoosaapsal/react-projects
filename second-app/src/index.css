@@ -11,3 +11,90 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App{
+  min-height: 100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Header{
+  background-color:teal;
+  border-radius: 3px;
+  width: 100%;
+  margin: 10px;
+  position: absolute;
+  right:0;
+  left:0;
+  top:0;
+
+}
+
+#appname{
+  color: aliceblue;
+  margin: auto;
+  padding:center;
+  align-items: center;
+  text-align: center;
+  font-size: xx-large;
+}
+
+.Footer{
+  background-color:teal;
+  height:3rem;
+  position: absolute;
+  right:0;
+  left: 0;
+  bottom:0; 
+}
+
+.footertxt{
+  color: aliceblue;
+  margin: auto;
+  padding:center;
+  align-items: center;
+  text-align: center;
+  font-size: xx-large;
+}
+
+.section{
+  height: 200px;
+  width: 200px;
+  border: 1px solid #000 ;
+  display: grid;
+  place-content:center ;
+  box-shadow: 2px 2px 5px #000;
+  border-radius: 0.25rem;
+
+}
+label{
+  position: absolute;
+  left: -99999px;
+
+}
+
+input[type="text"]{
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+  width: 190px;
+  margin-left: 5px;
+  font-size: 1rem;
+  box-shadow:2px 2px 2px #000;
+  outline: none;
+}
+
+button{
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+  width: 200px;
+  font-size: 1rem;
+  box-shadow:2px 2px 2px #000;
+  outline: none;
+  display: block;
+  margin-left: 8px;
+
+  
+}

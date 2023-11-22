@@ -2,38 +2,58 @@ import AddItem from "./AddItem";
 import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SearchItem from "./searchItem";
 function App() { 
  
- 
-    const [items,setItems]=useState(JSON.parse(localStorage.getItem("list_names")));   
+    const API_URL="http://localhost:3500/items"; 
+    const [items,setItems]=useState([]);   
     const [newItem,setNewItem]=useState('');
     const [search,setsearch]=useState('');
+    const [fetchError,setFetchError]=useState(null);
+    const [isLoading,setIsLoading]=useState(true)
+
+    useEffect(() => { 
+      const fetchItems =async () => {
+        try {
+           const response = await fetch(API_URL);
+           if(!response.ok) throw Error("data not recieved")
+           const listItem = await response.json();
+           setItems(listItem)
+           setFetchError(null)
+
+        }catch(err){
+          setFetchError(err.message)
+        }finally{
+          setIsLoading(false)
+        }
+      }
+      setTimeout(()=>{
+        (async () => await fetchItems())()
+      },2000)
+    },[])
+          
+        
 
     const addItem = (item) => {
       const id = items.length ? items[items.length - 1].id+1 : 1;
       const addNewItem = {id,checked:false,listname:item}
       const listItem = [...items, addNewItem]
       setItems(listItem)
-      localStorage.setItem("list_names",JSON.stringify(listItem))
+      
     }
-
- 
     const  handleCheckBox =(id)=>{//creating a function for input field
      const listItem=items.map((item)=> //creating a new array for 2nd useState value, 
      //and this item stand for like looping i variable it will collect the three variable one by one
      item.id===id ? {...item,checked:!item.checked} : item) //this is the logic
      setItems(listItem)// setting the new aaray to 2nd use state variable
-     localStorage.setItem("list_names",JSON.stringify(listItem)) //save this new array to local storage
-    }
+     }
      
     const handleDelete= (id)=>{ //creating a function for delete icon,and this fun  will remove the matching id.
      const newarray=items.filter((item)=>
      item.id!==id)
      setItems(newarray)
-     localStorage.setItem("list_names",JSON.stringify(newarray))
-   }
+     }
      
     const handleSubmit = (e) => {
      e.preventDefault()      
@@ -58,12 +78,17 @@ function App() {
             setsearch={setsearch}
           
           />
-          <Content
+          <main>
+            {isLoading && <p> Loading....</p>}
+            {fetchError &&<p>{`ERROR:${fetchError}`}</p>}
+          
+          {!isLoading && !fetchError && <Content
            item={items.filter(item =>(item.listname).toLowerCase().includes(search.toLowerCase()))}
            handleCheckBox={handleCheckBox}
            handleDelete={handleDelete}
+          />}
+          </main>
           
-          />
           <Footer
           length={items.length}
           />

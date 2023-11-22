@@ -1,9 +1,10 @@
 import React from 'react'
 
 const Header = () => {
+  const title="course list"
   return (
     <header>
-      <h1>To do list</h1>
+      <h1>{title}</h1>
     </header>    
   )
 }

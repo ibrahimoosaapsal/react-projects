@@ -1,9 +1,10 @@
 import React from 'react'
 
 const Header = () => {
+  const appname="First App"
   return (
-    <header>
-        
+    <header  className='Header'>
+        <p id='appname'>{appname}</p>
     </header>
   )
 }
