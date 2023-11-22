@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useState,useEffect } from "react";
 import SearchItem from "./searchItem";
+import apiRequest from "./apiRequest";
 function App() { 
  
     const API_URL="http://localhost:3500/items"; 
@@ -35,12 +36,22 @@ function App() {
           
         
 
-    const addItem = (item) => {
+    const addItem = async (item) => {
       const id = items.length ? items[items.length - 1].id+1 : 1;
       const addNewItem = {id,checked:false,listname:item}
       const listItem = [...items, addNewItem]
       setItems(listItem)
-      
+     
+      const postOptions={
+        method:'post',
+        headers:{
+          'content-type':'applications/json'
+        },
+          body: JSON.stringify(addNewItem)        
+      }
+      const result= await apiRequest(API_URL,postOptions)
+      if(result) setFetchError(result)
+
     }
     const  handleCheckBox =(id)=>{//creating a function for input field
      const listItem=items.map((item)=> //creating a new array for 2nd useState value, 
