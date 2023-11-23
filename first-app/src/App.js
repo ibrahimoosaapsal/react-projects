@@ -43,27 +43,52 @@ function App() {
       setItems(listItem)
      
       const postOptions={
-        method:'post',
+        method:'POST',
         headers:{
-          'content-type':'applications/json'
+          'Content-Type':'application/json'
         },
-          body: JSON.stringify(addNewItem)        
+        body: JSON.stringify(addNewItem)   
+             
       }
       const result= await apiRequest(API_URL,postOptions)
       if(result) setFetchError(result)
 
     }
-    const  handleCheckBox =(id)=>{//creating a function for input field
-     const listItem=items.map((item)=> //creating a new array for 2nd useState value, 
-     //and this item stand for like looping i variable it will collect the three variable one by one
-     item.id===id ? {...item,checked:!item.checked} : item) //this is the logic
-     setItems(listItem)// setting the new aaray to 2nd use state variable
-     }
+    const  handleCheckBox =async (id)=>{//creating a function for input field
+         const listItem=items.map((item)=> //creating a new array for 2nd useState value, 
+         //and this item stand for like looping i variable it will collect the three variable one by one
+         item.id===id ? {...item,checked:!item.checked} : item) //this is the logic
+         setItems(listItem)// setting the new aaray to 2nd use state variable
+    
+     const myItem=listItem.filter((item)=>item.id==id)
      
-    const handleDelete= (id)=>{ //creating a function for delete icon,and this fun  will remove the matching id.
+     const patchOptions={
+      method:'PATCH',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({checked:myItem[0].checked})   
+           
+    }
+    const requrl=`${API_URL}/${id}`
+    const result= await apiRequest(requrl,patchOptions)
+    if(result) setFetchError(result)
+
+    
+    
+    }
+    
+     
+    const handleDelete=async (id)=>{ //creating a function for delete icon,and this fun  will remove the matching id.
      const newarray=items.filter((item)=>
      item.id!==id)
      setItems(newarray)
+     
+      const deletOPtion={method:'DELETE'}
+      const requrl=`${API_URL}/${id}`
+      const result= await apiRequest(requrl,deletOPtion)
+      if(result) setFetchError(result)
+ 
      }
      
     const handleSubmit = (e) => {

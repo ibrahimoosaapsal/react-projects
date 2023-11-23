@@ -22,6 +22,8 @@ const AddItem = ({newItem,setNewItem,handleSubmit}) => {
         type='submit'
         aria-label='Add Item'
         onClick={() => inputRef.current.focus}
+    
+        
         
        >
         <FaPlus />
